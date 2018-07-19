@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ChronoSheetsAPI.ChronoSheetsClientLibApi;
-using ChronoSheetsAPI.Client;
 using ChronoSheetsAPI.ChronoSheetsClientLibModel;
 
 namespace JobCodeLister
@@ -14,29 +9,32 @@ namespace JobCodeLister
         static void Main(string[] args)
         {
             var xChronosheetsAuth_example = "";
-            var apiLoginInstance = new UserProfileApi();
 
-            try
+            while (string.IsNullOrWhiteSpace(xChronosheetsAuth_example))
             {
-                var loginRequest = new CSDoLoginRequest("Nock1997", "Password02@");
-                var loginResult = apiLoginInstance.UserProfileDoLogin(loginRequest);
+                Console.Clear();
+                Console.WriteLine("Enter your username");
+                var username = Console.ReadLine();
 
-                if(loginResult.Status == CSApiResponseDoLoginResponse.StatusEnum.Succeeded)
+                Console.WriteLine("Enter your password");
+                var password = Console.ReadLine();
+
+                var doLoginResult = DoLogin(username, password);
+
+                if (doLoginResult.Item1)
                 {
-                    xChronosheetsAuth_example = loginResult.Data.CSAuthToken;
+                    break;
                 }
                 else
                 {
-                    Console.WriteLine("Error logging in: " + loginResult.Message);
-                    Console.ReadKey();
+                    xChronosheetsAuth_example = doLoginResult.Item2;
                 }
             }
-            catch(Exception e)
-            {
-                Console.WriteLine("Exception when calling UserProfileApi.UserProfileDoLogin: " + e.Message);
-                Console.ReadKey();
-            }
+
+
             if (!string.IsNullOrWhiteSpace(xChronosheetsAuth_example)) {
+                Console.Clear();
+
                 var apiInstance = new AggregateJobTasksApi();
                 var xChronosheetsAuth = xChronosheetsAuth_example;  // string | The ChronoSheets Auth Token
 
@@ -49,11 +47,11 @@ namespace JobCodeLister
                     {
                         foreach(var job in result.Data)
                         {
-                            Console.WriteLine(string.Format("Job: {0}, Client: {1}, Project: {2}", job.Code, job._Client, job.Project));
+                            Console.WriteLine(job.PrintMyJobCodeDetails());
 
                             foreach(var task in job.AvailableTasks)
                             {
-                                Console.WriteLine(string.Format("    Task: {0}", task.Label));
+                                Console.WriteLine(task.PrintMyTaskDetails());
                             }
                             Console.WriteLine("");
                         }
@@ -66,6 +64,41 @@ namespace JobCodeLister
                     Console.ReadKey();
                 }
             }
+        }
+        static Tuple<bool, string> DoLogin(string userName, string password)
+        {
+            var xChronosheetsAuth_example = "";
+            var apiLoginInstance = new UserProfileApi();
+            var wantsExit = false;
+
+            try
+            {
+                var loginRequest = new CSDoLoginRequest(userName, password);
+                var loginResult = apiLoginInstance.UserProfileDoLogin(loginRequest);
+
+                if (loginResult.Status == CSApiResponseDoLoginResponse.StatusEnum.Succeeded)
+                {
+                    xChronosheetsAuth_example = loginResult.Data.CSAuthToken;
+                }
+                else
+                {
+                    Console.WriteLine("Error logging in: " + loginResult.Message);
+                    Console.WriteLine("Please try again, or press 'Q' to quit the app. Press enter to try again.");
+                    var input = Console.ReadLine().Trim().ToUpper();
+
+                    if(input == "Q")
+                    {
+                        wantsExit = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception when calling UserProfileApi.UserProfileDoLogin: " + e.Message);
+                wantsExit = true;
+                Console.ReadKey();
+            }
+            return new Tuple<bool, string>(wantsExit, xChronosheetsAuth_example);
         }
     }
 }
