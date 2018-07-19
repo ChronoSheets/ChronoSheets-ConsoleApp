@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobCodeLister", "JobCodeLister\JobCodeLister.csproj", "{86F9458B-CC0E-4AA4-A3DF-8040F76A4EAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChronoSheetsAPI", "..\CSharp\src\ChronoSheetsAPI\ChronoSheetsAPI.csproj", "{BBB17172-9821-4CFF-924C-5B77A0F6691E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{86F9458B-CC0E-4AA4-A3DF-8040F76A4EAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86F9458B-CC0E-4AA4-A3DF-8040F76A4EAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86F9458B-CC0E-4AA4-A3DF-8040F76A4EAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86F9458B-CC0E-4AA4-A3DF-8040F76A4EAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBB17172-9821-4CFF-924C-5B77A0F6691E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBB17172-9821-4CFF-924C-5B77A0F6691E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBB17172-9821-4CFF-924C-5B77A0F6691E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBB17172-9821-4CFF-924C-5B77A0F6691E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {06E0FE4A-43CB-4AE2-96B8-24C52B4134A4}
+	EndGlobalSection
+EndGlobal
