@@ -50,8 +50,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CSharp\src\ChronoSheetsAPI\ChronoSheetsAPI.csproj">
-      <Project>{bbb17172-9821-4cff-924c-5b77a0f6691e}</Project>
+    <ProjectReference Include="..\CSharpApiClient\ChronoSheetsAPI.csproj">
+      <Project>{0997b903-e7d5-43f5-9d13-1b0a94fc3304}</Project>
       <Name>ChronoSheetsAPI</Name>
     </ProjectReference>
   </ItemGroup>
